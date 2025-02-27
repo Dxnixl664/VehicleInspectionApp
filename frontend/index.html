@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Iniciar Sesión</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="app" class="flex items-center justify-center h-screen">
+
+        <!-- LOGIN FORM -->
+        <div v-if="!isLoggedIn" class="w-full max-w-sm bg-white p-6 rounded shadow-md">
+            <h1 class="text-2xl font-semibold mb-4 text-gray-700">Iniciar sesión</h1>
+
+            <form @submit.prevent="login" class="flex flex-col space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-600">Nombre de usuario</label>
+                    <input
+                        v-model="username"
+                        type="text"
+                        class="block w-full border border-gray-300 rounded py-2 px-3 focus:outline-none
+                            focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Ingresa tu usuario"
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1 text-gray-600">Contraseña</label>
+                    <input
+                        v-model="password"
+                        type="password"
+                        class="block w-full border border-gray-300 rounded py-2 px-3 focus:outline-none
+                            focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Ingresa tu contraseña"
+                        required
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700"
+                >
+                    Iniciar sesión
+                </button>
+            </form>
+        </div>
+
+        <!-- MAIN BUTTONS -->
+        <div v-else>
+            <!-- Si el rol es 'user' -->
+            <div v-if="userRole === 'user'">
+                <button
+                    class="bg-green-500 text-white font-bold py-2 px-4 rounded m-2 hover:bg-green-600 focus:outline-none
+                        focus:shadow-outline"
+                >
+                    INICIAR INSPECCIÓN
+                </button>
+            </div>
+
+            <!-- Si el rol es 'admin' -->
+            <div v-else-if="userRole === 'admin'">
+                <button
+                    class="bg-blue-500 text-white font-bold py-2 px-4 rounded m-2 hover:bg-blue-600 focus:outline-none
+                        focus:shadow-outline"
+                >
+                    USUARIOS
+                </button>
+                <button
+                    class="bg-teal-500 text-white font-bold py-2 px-4 rounded m-2 hover:bg-teal-600 focus:outline-none
+                        focus:shadow-outline"
+                >
+                    REPORTES
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="frontend/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual env folder
+venv/
+.venv/
+
+# PyCharm project settings
+.idea/
+.idea/*
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# SQLite database files
+*.db
+*.sqlite
+*.sqlite3
+
+# OS or editor-specific files
+.DS_Store
+Thumbs.db
+
+# Logs or runtime files
+*.log
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# pytest cache
+.pytest_cache/
+
+# mypy type-checking cache
+.mypy_cache/
+
+*.http
