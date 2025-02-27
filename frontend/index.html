@@ -6,76 +6,186 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 <body class="bg-gray-100">
-    <div id="app" class="flex items-center justify-center h-screen">
+<div id="app" class="flex items-center justify-center min-h-screen overflow-y-auto">
 
-        <!-- LOGIN FORM -->
-        <div v-if="!isLoggedIn" class="w-full max-w-sm bg-white p-6 rounded shadow-md">
-            <h1 class="text-2xl font-semibold mb-4 text-gray-700">Iniciar sesión</h1>
+    <!-- LOGIN FORM -->
+    <div v-if="!isLoggedIn" class="w-full max-w-sm bg-white p-6 rounded shadow-md">
+        <h1 class="text-2xl font-semibold mb-4 text-gray-700">Iniciar sesión</h1>
 
-            <form @submit.prevent="login" class="flex flex-col space-y-4">
-                <div>
-                    <label class="block text-sm font-medium mb-1 text-gray-600">Nombre de usuario</label>
-                    <input
+        <form @submit.prevent="login" class="flex flex-col space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1 text-gray-600">Nombre de usuario</label>
+                <input
                         v-model="username"
                         type="text"
                         class="block w-full border border-gray-300 rounded py-2 px-3 focus:outline-none
                             focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Ingresa tu usuario"
                         required
-                    />
-                </div>
+                />
+            </div>
 
-                <div>
-                    <label class="block text-sm font-medium mb-1 text-gray-600">Contraseña</label>
-                    <input
+            <div>
+                <label class="block text-sm font-medium mb-1 text-gray-600">Contraseña</label>
+                <input
                         v-model="password"
                         type="password"
                         class="block w-full border border-gray-300 rounded py-2 px-3 focus:outline-none
                             focus:ring-blue-500 focus:border-blue-500"
                         placeholder="Ingresa tu contraseña"
                         required
-                    />
-                </div>
+                />
+            </div>
 
-                <button
+            <button
                     type="submit"
                     class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700"
-                >
-                    Iniciar sesión
-                </button>
-            </form>
-        </div>
+            >
+                Iniciar sesión
+            </button>
+        </form>
+    </div>
 
-        <!-- MAIN BUTTONS -->
-        <div v-else>
-            <!-- Si el rol es 'user' -->
-            <div v-if="userRole === 'user'">
-                <button
+    <!-- MAIN BUTTONS -->
+    <div v-else>
+        <!-- USER -->
+        <div v-if="isLoggedIn && userRole === 'user'">
+            <button
+                    v-if="!isInspectionStarted"
+                    @click="startInspection"
                     class="bg-green-500 text-white font-bold py-2 px-4 rounded m-2 hover:bg-green-600 focus:outline-none
                         focus:shadow-outline"
-                >
-                    INICIAR INSPECCIÓN
-                </button>
-            </div>
+            >
+                INICIAR INSPECCIÓN
+            </button>
 
-            <!-- Si el rol es 'admin' -->
-            <div v-else-if="userRole === 'admin'">
-                <button
-                    class="bg-blue-500 text-white font-bold py-2 px-4 rounded m-2 hover:bg-blue-600 focus:outline-none
-                        focus:shadow-outline"
-                >
-                    USUARIOS
-                </button>
-                <button
-                    class="bg-teal-500 text-white font-bold py-2 px-4 rounded m-2 hover:bg-teal-600 focus:outline-none
-                        focus:shadow-outline"
-                >
-                    REPORTES
-                </button>
+            <div v-else>
+                <h2 class="text-xl font-semibold mb-4">Reporte de inspección de vehículo</h2>
+
+                <!-- CARRIER -->
+                <label
+                        class="block mb-2">
+                    <span class="font-semibold">Carrier:</span>
+                    <select
+                            v-model="selectedCarrier"
+                            class="block w-full bg-white border-gray-300 rounded p-2 mt-1">
+                        <option disabled value="">-- Selecciona un carrier --</option>
+                        <option v-for="carrier in carriers" :value="carrier" :key="carrier">
+                            {{ carrier }}
+                        </option>
+                    </select>
+                </label>
+
+                <!-- TRUCK NO -->
+                <label
+                        class="block mb-2">
+                    <span class="font-semibold">Número del camión:</span>
+                    <input type="text" v-model="truckNumber" class="block w-full bg-white border-gray-300 rounded p-2 mt-1"/>
+                </label>
+
+                <!-- ODOMETER -->
+                <label
+                        class="block mb-2">
+                    <span class="font-semibold">Lectura del odómetro:</span>
+                    <input type="number" v-model="odometer" class="block w-full bg-white border-gray-300 rounded p-2 mt-1"/>
+                </label>
+
+                <!-- TRUCK ITEMS -->
+                <div
+                    v-for="(item, index) in truckItems"
+                    :key="index"
+                    class="mt-4">
+                    <div class="flex items-start">
+                        <span class="font-semibold w-40">{{ item.label }}</span>
+
+                        <template v-if="item.key === 'other'">
+                            <button
+                                v-if="!item.showOtherFields"
+                                class="bg-gray-300 text-white font-bold py-1 px-3 rounded"
+                                @click="item.showOtherFields = true"
+                            >
+                                ➕
+                            </button>
+                        </template>
+                        <template v-else>
+                            <!-- Your buttons for non-other items -->
+                            <div class="flex items-center space-x-2">
+                                <button
+                                    :class="item.value === true ? 'bg-green-500' : 'bg-gray-300'"
+                                    class="text-white font-bold py-1 px-3 rounded"
+                                    @click="item.value = true"
+                                >
+                                    ✔️
+                                </button>
+                                <button
+                                    :class="item.value === false ? 'bg-red-500' : 'bg-gray-300'"
+                                    class="text-white font-bold py-1 px-3 rounded"
+                                    @click="item.value = false"
+                                >
+                                    ❌
+                                </button>
+                                <button
+                                    v-if="item.value === false"
+                                    class="bg-blue-500 text-white font-bold py-1 px-3 rounded"
+                                    @click="takePhoto(index)"
+                                >
+                                    Tomar foto
+                                </button>
+
+                                <div
+                                    v-if="item.photo"
+                                    class="ml-4"
+                                >
+                                    <img
+                                        :src="item.photo"
+                                        alt="Foto de incidencia"
+                                        class="w-20 h-20 object-cover rounded border"
+                                    />
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Other fields displayed as a vertical column -->
+                    <div
+                        v-if="item.key === 'other' && item.showOtherFields"
+                        class="flex flex-col space-y-2 mt-2"
+                    >
+                        <button
+                            class="bg-blue-500 text-white font-bold py-1 px-3 rounded w-fit"
+                            @click="takePhoto(index)"
+                        >
+                            Tomar foto
+                        </button>
+                        <textarea
+                            v-model="otherDescription"
+                            rows="3"
+                            placeholder="Describe la incidencia"
+                            class="border rounded px-2 py-1 w-full"
+                        ></textarea>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Si el rol es 'admin' -->
+        <div v-else-if="userRole === 'admin'">
+            <button
+                class="bg-blue-500 text-white font-bold py-2 px-4 rounded m-2 hover:bg-blue-600 focus:outline-none
+                    focus:shadow-outline"
+            >
+                USUARIOS
+            </button>
+            <button
+                class="bg-teal-500 text-white font-bold py-2 px-4 rounded m-2 hover:bg-teal-600 focus:outline-none
+                    focus:shadow-outline"
+            >
+                REPORTES
+            </button>
+        </div>
     </div>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="frontend/app.js"></script>
+</div>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="frontend/app.js"></script>
 </body>
 </html>
