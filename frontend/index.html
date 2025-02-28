@@ -84,10 +84,15 @@
                 </label>
 
                 <!-- ODOMETER -->
-                <label
-                        class="block mb-2">
+                <label class="block mb-2">
                     <span class="font-semibold">Lectura del odómetro:</span>
-                    <input type="number" v-model="odometer" class="block w-full bg-white border-gray-300 rounded p-2 mt-1"/>
+                    <input
+                        type="number"
+                        v-model.number="odometer"
+                        min="1"
+                        step="1"
+                        @input="preventNegative"
+                        class="block w-full bg-white border-gray-300 rounded p-2 mt-1"/>
                 </label>
 
                 <!-- TRUCK ITEMS -->
@@ -118,7 +123,7 @@
                                     ✔️
                                 </button>
                                 <button
-                                    :class="item.value === false ? 'bg-red-500' : 'bg-gray-300'"
+                                    :class="item.value === false ? 'bg-red-300' : 'bg-gray-300'"
                                     class="text-white font-bold py-1 px-3 rounded"
                                     @click="item.value = false"
                                 >
@@ -161,7 +166,8 @@
                             v-model="otherDescription"
                             rows="3"
                             placeholder="Describe la incidencia"
-                            class="border rounded px-2 py-1 w-full"
+                            class="block w-full bg-white border border-gray-300 rounded px-2 py-1 focus:outline-none
+                            focus:ring-blue-500 focus:border-blue-500"
                         ></textarea>
                     </div>
                 </div>

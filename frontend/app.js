@@ -19,7 +19,7 @@ createApp({
             address: '',
             inspectionDate: null,
             truckNumber: '',
-            odometer: '',
+            odometer: 0,
             truckItems: [
                 { key: 'air_compressor',                label: 'Compresor de aire',                             value: null },
                 { key: 'air_lines',                     label: 'Líneas de aire',                                value: null },
@@ -68,6 +68,13 @@ createApp({
                 { key: 'other',                         label: 'Otros',                                         value: null },
             ]
         }
+    },
+    watch: {
+        odometer(newVal) {
+            if (newVal < 0) {
+                this.odometer = 0;
+            }
+        },
     },
     methods: {
         async login() {
@@ -151,6 +158,11 @@ createApp({
             };
 
             fileInput.click();
+        },
+        preventNegative() {
+            if (this.odometer < 0) {
+                this.odometer = 0;
+            }
         }
     }
 }).mount('#app')
