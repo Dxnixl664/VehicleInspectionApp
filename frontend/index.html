@@ -113,7 +113,6 @@
                             </button>
                         </template>
                         <template v-else>
-                            <!-- Your buttons for non-other items -->
                             <div class="flex items-center space-x-2">
                                 <button
                                     :class="item.value === true ? 'bg-green-500' : 'bg-gray-300'"
@@ -151,7 +150,6 @@
                         </template>
                     </div>
 
-                    <!-- Other fields displayed as a vertical column -->
                     <div
                         v-if="item.key === 'other' && item.showOtherFields"
                         class="flex flex-col space-y-2 mt-2"
@@ -171,10 +169,130 @@
                         ></textarea>
                     </div>
                 </div>
+
+                <!-- TRAILER -->
+                <!-- TRAILER ITEMS -->
+                <div
+                    v-for="(trailer, tIndex) in trailers"
+                    :key="'t'+tIndex"
+                    class="border border-gray-300 p-4 mb-4 rounded"
+                >
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="block">
+                            <span class="font-semibold">Número de Trailer:</span>
+                            <input
+                                type="text"
+                                v-model="trailer.trailer_number"
+                                class="block w-full bg-white border-gray-300 rounded p-2 mt-1"
+                                placeholder="Ingrese el número de trailer"
+                            />
+                        </label>
+
+                        <button
+                            class="bg-red-500 text-white font-bold py-1 px-3 rounded ml-2"
+                            @click="removeTrailer(tIndex)"
+                        >
+                            Eliminar
+                        </button>
+                    </div>
+
+                    <!-- TRAILER ITEMS -->
+                    <div
+                        v-for="(item, iIndex) in trailer.items"
+                        :key="'ti'+iIndex"
+                        class="mt-4"
+                    >
+                        <div class="flex items-start">
+                            <span class="font-semibold w-40">{{ item.key }}</span>
+
+                            <template
+                                v-if="item.key === 'other'">
+                                <button
+                                    v-if="!item.showOtherFields"
+                                    class="bg-gray-300 text-black font-bold py-1 px-3 rounded"
+                                    @click="item.showOtherFields = true"
+                                >
+                                    ➕
+                                </button>
+                            </template>
+                            <template v-else>
+                                <div class="flex items-center space-x-2">
+                                    <button
+                                        :class="item.value === true ? 'bg-green-500' : 'bg-gray-300'"
+                                        class="text-white font-bold py-1 px-3 rounded"
+                                        @click="item.value = true"
+                                    >
+                                        ✔️
+                                    </button>
+                                    <button
+                                        :class="item.value === false ? 'bg-red-300' : 'bg-gray-300'"
+                                        class="text-white font-bold py-1 px-3 rounded"
+                                        @click="item.value = false"
+                                    >
+                                        ❌
+                                    </button>
+                                    <button
+                                        v-if="item.value === false"
+                                        class="bg-blue-500 text-white font-bold py-1 px-3 rounded"
+                                        @click="takeTrailerPhoto(tIndex, iIndex)"
+                                    >
+                                        Tomar foto
+                                    </button>
+
+                                    <div
+                                        v-if="item.photo"
+                                        class="ml-4"
+                                    >
+                                        <img
+                                            :src="item.photo"
+                                            alt="Foto de incidencia"
+                                            class="w-20 h-20 object-cover rounded border"
+                                        />
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <div
+                            v-if="item.key === 'other' && item.showOtherFields"
+                            class="flex flex-col space-y-2 mt-2"
+                        >
+                            <button
+                                class="bg-blue-500 text-white font-bold py-1 px-3 rounded w-fit"
+                                @click="takeTrailerPhoto(tIndex, iIndex)"
+                            >
+                                Tomar foto
+                            </button>
+                            <textarea
+                                v-model="item.description"
+                                rows="3"
+                                placeholder="Describe la incidencia"
+                                class="block w-full bg-white border border-gray-300 rounded px-2 py-1 focus:outline-none
+                                    focus:ring-blue-500 focus:border-blue-500"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ADD TRAILERS -->
+                <button
+                    class="bg-gray-500 text-white font-bold py-1 px-3 rounded mb-4 block"
+                    @click="addTrailer"
+                >
+                    Agregar Trailer
+                </button>
+
+                <button
+                    class="bg-green-600 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-green-700 block"
+                    @click="submitInspection"
+                >
+                    Guardar Reporte
+                </button>
+
             </div>
         </div>
 
-        <!-- Si el rol es 'admin' -->
+        <!-- ADMIN -->
         <div v-else-if="userRole === 'admin'">
             <button
                 class="bg-blue-500 text-white font-bold py-2 px-4 rounded m-2 hover:bg-blue-600 focus:outline-none

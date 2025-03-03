@@ -21,51 +21,69 @@ createApp({
             truckNumber: '',
             odometer: 0,
             truckItems: [
-                { key: 'air_compressor',                label: 'Compresor de aire',                             value: null },
-                { key: 'air_lines',                     label: 'Líneas de aire',                                value: null },
-                { key: 'battery',                       label: 'Batería',                                       value: null },
-                { key: 'belts_and_hoses',               label: 'Correas y mangueras',                           value: null },
-                { key: 'body',                          label: 'Carrocería',                                    value: null },
-                { key: 'brake_accessories',             label: 'Accesorios de freno',                           value: null },
-                { key: 'brake_parking',                 label: 'Freno de estacionamiento',                      value: null },
-                { key: 'brake_service',                 label: 'Freno de servicio',                             value: null },
-                { key: 'clutch',                        label: 'Embrague',                                      value: null },
-                { key: 'coupling_devices',              label: 'Dispositivos de acoplamiento',                  value: null } ,
-                { key: 'defroster_heater',              label: 'Desempañante/Calefacción',                      value: null },
-                { key: 'engine',                        label: 'Motor',                                         value: null },
-                { key: 'exhaust',                       label: 'Escape',                                        value: null },
-                { key: 'fifth_wheel',                   label: 'Quinta rueda',                                  value: null },
-                { key: 'fluid_levels',                  label: 'Niveles de fluidos',                            value: null },
-                { key: 'frame_and_assembly',            label: 'Chasis y ensamblaje',                           value: null },
-                { key: 'front_axle',                    label: 'Eje delantero',                                 value: null },
-                { key: 'fuel_tanks',                    label: 'Tanques de combustible',                        value: null },
-                { key: 'horn',                          label: 'Claxon',                                        value: null },
-                { key: 'lights_head_stop',              label: 'Luces delanteras y de freno',                   value: null },
-                { key: 'lights_tail_dash',              label: 'Luces traseras y del tablero',                  value: null },
-                { key: 'lights_turn_indicators',        label: 'Luces direccionales',                           value: null },
-                { key: 'lights_clearance_marker',       label: 'Luces de demarcación',                          value: null },
-                { key: 'mirrors',                       label: 'Espejos',                                       value: null },
-                { key: 'muffler',                       label: 'Silenciador',                                   value: null },
-                { key: 'oil_pressure',                  label: 'Presión de aceite',                             value: null },
-                { key: 'radiator',                      label: 'Radiador',                                      value: null },
-                { key: 'rear_end',                      label: 'Eje trasero',                                   value: null },
-                { key: 'reflectors',                    label: 'Reflectores',                                   value: null },
-                { key: 'safety_fire_extinguisher',      label: 'Extintor de incendios',                         value: null },
-                { key: 'safety_flags_flares_fusees',    label: 'Banderas/Bengalas/Fusibles de seguridad',       value: null },
-                { key: 'safety_reflective_triangles',   label: 'Triángulos reflectantes de seguridad',          value: null },
-                { key: 'safety_spare_bulbs_and_fuses',  label: 'Bombillas y fusibles de repuesto de seguridad', value: null },
-                { key: 'safety_spare_seal_beam',        label: 'Foco sellado de repuesto de seguridad',         value: null },
-                { key: 'starter',                       label: 'Arranque',                                      value: null },
-                { key: 'steering',                      label: 'Dirección',                                     value: null },
-                { key: 'suspension_system',             label: 'Sistema de suspensión',                         value: null },
-                { key: 'tire_chains',                   label: 'Cadenas para neumáticos',                       value: null },
-                { key: 'tires',                         label: 'Neumáticos',                                    value: null },
-                { key: 'transmission',                  label: 'Transmisión (caja de cambios)',                 value: null },
-                { key: 'trip_recorder',                 label: 'Registrador de viaje',                          value: null },
-                { key: 'wheels_and_rims',               label: 'Ruedas y llantas',                              value: null },
-                { key: 'windows',                       label: 'Ventanas',                                      value: null },
-                { key: 'windshield_wipers',             label: 'Limpiaparabrisas',                              value: null },
-                { key: 'other',                         label: 'Otros',                                         value: null },
+                { key: 'air_compressor', value: null },
+                { key: 'air_lines', value: null },
+                { key: 'battery', value: null },
+                { key: 'belts_and_hoses', value: null },
+                { key: 'body', value: null },
+                { key: 'brake_accessories', value: null },
+                { key: 'brake_parking', value: null },
+                { key: 'brake_service', value: null },
+                { key: 'clutch', value: null },
+                { key: 'coupling_devices', value: null } ,
+                { key: 'defroster_heater', value: null },
+                { key: 'engine', value: null },
+                { key: 'exhaust', value: null },
+                { key: 'fifth_wheel', value: null },
+                { key: 'fluid_levels', value: null },
+                { key: 'frame_and_assembly', value: null },
+                { key: 'front_axle', value: null },
+                { key: 'fuel_tanks', value: null },
+                { key: 'horn', value: null },
+                { key: 'lights_head_stop', value: null },
+                { key: 'lights_tail_dash', value: null },
+                { key: 'lights_turn_indicators', value: null },
+                { key: 'lights_clearance_marker', value: null },
+                { key: 'mirrors', value: null },
+                { key: 'muffler', value: null },
+                { key: 'oil_pressure', value: null },
+                { key: 'radiator', value: null },
+                { key: 'rear_end', value: null },
+                { key: 'reflectors', value: null },
+                { key: 'safety_fire_extinguisher', value: null },
+                { key: 'safety_flags_flares_fusees', value: null },
+                { key: 'safety_reflective_triangles', value: null },
+                { key: 'safety_spare_bulbs_and_fuses', value: null },
+                { key: 'safety_spare_seal_beam', value: null },
+                { key: 'starter', value: null },
+                { key: 'steering', value: null },
+                { key: 'suspension_system', value: null },
+                { key: 'tire_chains', value: null },
+                { key: 'tires', value: null },
+                { key: 'transmission', value: null },
+                { key: 'trip_recorder', value: null },
+                { key: 'wheels_and_rims', value: null },
+                { key: 'windows', value: null },
+                { key: 'windshield_wipers', value: null },
+                { key: 'other', value: null },
+            ],
+            trailers: [],
+            baseTrailerItems: [
+                { key: 'brake_connections', value: null },
+                { key: 'brakes', value: null },
+                { key: 'coupling_devices', value: null },
+                { key: 'coupling_king_pin', value: null },
+                { key: 'doors', value: null },
+                { key: 'hitch', value: null },
+                { key: 'landing_gear', value: null },
+                { key: 'lights_all', value: null },
+                { key: 'reflectors_reflective_tape', value: null },
+                { key: 'roof', value: null },
+                { key: 'suspension_system', value: null },
+                { key: 'tarpaulin', value: null },
+                { key: 'tires', value: null },
+                { key: 'wheels_and_rims', value: null },
+                { key: 'other', value: null },
             ]
         }
     },
@@ -162,6 +180,86 @@ createApp({
         preventNegative() {
             if (this.odometer < 0) {
                 this.odometer = 0;
+            }
+        },
+        addTrailer() {
+            this.trailers.push({
+                trailer_number: '',
+                items: JSON.parse(JSON.stringify(this.baseTrailerItems))
+            });
+        },
+        removeTrailer(index) {
+            this.trailers.splice(index, 1);
+        },
+        takeTrailerPhoto(trailerIndex, itemIndex) {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.capture = 'environment';
+
+            fileInput.onchange = (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    this.trailers[trailerIndex].items[itemIndex].photo = URL.createObjectURL(file);
+                }
+            };
+            fileInput.click();
+        },
+        async submitInspection () {
+            try {
+                const token = localStorage.getItem('accessToken');
+                if (!token) {
+                    alert('Ocurrió su sesión. Inicie sesión nuevamente.');
+                    return;
+                }
+
+                const truckInspectionItems = {};
+                this.truckItems.forEach(item => {
+                    truckInspectionItems[item.key] = item.value;
+                });
+
+                const trailersData = this.trailers.map((trailer) => {
+                    const trailerInspectionItems = {};
+                    trailer.items.forEach(tItem => {
+                        trailerInspectionItems[tItem.key] = tItem.value;
+                    });
+
+                    return {
+                        report_id: 0,
+                        trailer_number: trailer.trailer_number,
+                        inspection_items: trailerInspectionItems
+                    };
+                });
+
+                const reportData = {
+                    carrier: this.selectedCarrier,
+                    address: this.address,
+                    inspection_date: this.inspectionDate,
+                    truck_number: this.truckNumber,
+                    odometer_reading: this.odometer,
+                    truck_inspection_items: truckInspectionItems,
+                    trailers: trailersData
+                };
+
+                const response = await fetch('/reports', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'appl'
+                    },
+                    body: JSON.stringify(reportData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    alert(`Error al guardar el reporte: ${errorData.detail || response.statusText}`);
+                    return;
+                }
+
+                alert('Reporte guardado exitosamienta!');
+            } catch (error) {
+                console.error('Error al enviar el reporte:, error');
+                alert('Ocurrió un error al guardar el reporte.')
             }
         }
     }
